@@ -32,7 +32,18 @@ namespace CSharpViaTest.Collections._30_MapReducePractices
 
         static IDictionary<string, ISet<T>> Combine<T>(IDictionary<string, ISet<T>> first, IDictionary<string, ISet<T>> second)
         {
-            throw new NotImplementedException();
+           return first
+           .Concat(second)
+           .Aggregate(new Dictionary<string, ISet<T>>(StringComparer.OrdinalIgnoreCase), 
+           (dest, pair) => {
+               if(dest.ContainsKey(pair.Key)){
+                   dest[pair.Key] = dest[pair.Key].UnionWith(pair.Value);
+               }else
+               {
+                   dest.Add(pair.Key, pair.Value);
+               }
+               return dest;
+           })
         }
 
         #endregion
