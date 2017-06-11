@@ -29,7 +29,12 @@ namespace CSharpViaTest.Collections._20_YieldPractices
 
         public static IEnumerable<TResult> MyCast<TResult>(this IEnumerable source)
         {
-            throw new NotImplementedException();
+            var enumerator = source.GetEnumerator();
+            while (true)
+            {
+                enumerator.MoveNext();
+                yeld return (TResult)enumerator.Current;
+            }
         }
 
         #endregion
