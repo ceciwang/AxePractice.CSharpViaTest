@@ -31,7 +31,7 @@ namespace CSharpViaTest.Collections._20_YieldPractices
         public IEnumerable<string> GetStringTriangle(char character, int count)
         {
             Enumerable.Range(1, count).Select(n => {
-                return new StringBuilder()
+                return new StringBuilder(character, count).Build();
             })
         }
 
