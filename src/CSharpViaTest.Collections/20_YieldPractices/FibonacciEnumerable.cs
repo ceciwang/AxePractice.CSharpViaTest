@@ -36,11 +36,12 @@ namespace CSharpViaTest.Collections._20_YieldPractices
         {
             int first = 1;
             int second = 1;
+            yield return first;
             while(true){
+                yield return second;                
                 var temp = first + second;
                 first = second;
                 second = temp;
-                yield return first;
             }
         }
         

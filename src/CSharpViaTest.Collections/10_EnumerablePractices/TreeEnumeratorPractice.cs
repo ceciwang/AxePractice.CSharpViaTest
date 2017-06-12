@@ -68,9 +68,9 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
         class TreeNodeEnumerator : IEnumerator<TreeNode>
         {
-            Stack<IEnumerator<TreeNode>> Stack;
+            Stack<IEnumerator> Stack;
             TreeNode root;
-            IEnumerator<TreeNode> CurrentEnumerator { get {return Stack.Peek();}};
+            IEnumerator CurrentEnumerator { get {return Stack.Peek();}}
             public TreeNodeEnumerator(TreeNode root)
             {
                 this.root = root;
@@ -78,9 +78,10 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
             public bool MoveNext()
             {
-                if(!Current.Children.IsNullOrEmpty()){
+                if(Current.Children.Length != 0){
                     Stack.Push(Current.Children.GetEnumerator());
                 }
+
                 var result = CurrentEnumerator.MoveNext();
                 if(result) {return result;}
                 Stack.Pop();
@@ -89,11 +90,11 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
             public void Reset()
             {
-                Stack.Clear();
+                if(Stack != null) Stack.Clear();
             }
 
             public TreeNode Current { get {
-                return CurrentEnumerator != null ? CurrentEnumerator.Current : root;
+                return CurrentEnumerator != null ? (TreeNode)CurrentEnumerator.Current : root;
                 }
             }
 
@@ -101,7 +102,7 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
             public void Dispose()
             {
-                Stack.Clear();
+                if(Stack != null) Stack.Clear();
             }
         }
 

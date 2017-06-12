@@ -37,13 +37,13 @@ namespace CSharpViaTest.Collections._30_MapReducePractices
            .Aggregate(new Dictionary<string, ISet<T>>(StringComparer.OrdinalIgnoreCase), 
            (dest, pair) => {
                if(dest.ContainsKey(pair.Key)){
-                   dest[pair.Key] = dest[pair.Key].UnionWith(pair.Value);
+                   dest[pair.Key].UnionWith(pair.Value);
                }else
                {
                    dest.Add(pair.Key, pair.Value);
                }
                return dest;
-           })
+           });
         }
 
         #endregion
