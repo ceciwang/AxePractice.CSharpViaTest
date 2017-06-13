@@ -37,7 +37,12 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
             this IEnumerable<TSource> source,
             Func<TSource, TSource, TSource> func)
         {
-            throw new NotImplementedException();
+            TSource result;
+            foreach (var item in source)
+            {
+                result = func(result, item);
+            }
+            return result;
         }
 
         #endregion
