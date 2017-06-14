@@ -39,20 +39,17 @@ namespace CSharpViaTest.Collections._20_YieldPractices
         static IEnumerable<int> TakeUntilError(IEnumerable<int> sequence)
         {
             var enumerator = sequence.GetEnumerator();
-            // while(true){
-            //     try
-            //     {
-            //         var result = enumerator.MoveNext();
-            //         if(result) {
-            //             yield return enumerator.Current;
-            //         }
-            //     }
-            //     catch ()
-            //     {
-            //         yield break;
-            //     }
-            // }
-            throw new NotImplementedException();
+            while(true){
+                try
+                {
+                    var result = enumerator.MoveNext();                    
+                }
+                catch (Exception e)
+                {
+                    yield break;
+                }
+                yield return enumerator.Current;
+            }
         }
 
         #endregion

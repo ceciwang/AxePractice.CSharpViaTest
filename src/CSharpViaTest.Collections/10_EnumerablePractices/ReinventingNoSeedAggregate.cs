@@ -37,7 +37,13 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
             this IEnumerable<TSource> source,
             Func<TSource, TSource, TSource> func)
         {
-            TSource result;
+            if(source == null || func == null) {
+                throw new ArgumentNullException();
+            }
+            if(source.Count() == 0) {
+                throw new InvalidOperationException();
+            }
+            TSource result = default(TSource);
             foreach (var item in source)
             {
                 result = func(result, item);

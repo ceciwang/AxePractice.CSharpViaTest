@@ -76,28 +76,29 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
             public bool MoveNext()
             {
-                foreach (var item in root.Children)
-                {
-                    stack.Push(item);
-                }
+                // foreach (var item in root.Children)
+                // {
+                //     stack.Push(item);
+                // }
+                throw new NotImplementedException();
             }
 
-            public void AddToStack(node){
-                if(node.Children.Length == 0) {
-                    this.stack.Push(node);
-                    return;
-                }
-                foreach (var item in node.Children)
-                {
-                    AddToStack(item);
-                }
-            }
+            // public void AddToStack(node){
+            //     if(node.Children.Length == 0) {
+            //         this.stack.Push(node);
+            //         return;
+            //     }
+            //     foreach (var item in node.Children)
+            //     {
+            //         AddToStack(item);
+            //     }
+            // }
 
             public void Reset()
             {
             }
 
-            public TreeNode Current { get {} }
+            public TreeNode Current { get { throw new NotImplementedException();} }
 
             object IEnumerator.Current => Current;
 

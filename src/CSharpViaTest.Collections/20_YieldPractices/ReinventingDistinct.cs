@@ -36,7 +36,12 @@ namespace CSharpViaTest.Collections._20_YieldPractices
 
         public static IEnumerable<TSource> MyDistinct<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
         {
-            throw new NotImplementedException();
+            // IEnumerable<TSource> result;
+            // var enumerator = source.GetEnumerator();
+            // while(enumerator.MoveNext()){
+            //     result.Push(enumerator.Current);
+            // }                    
+            throw new NotImplementedException();    
         }
 
         #endregion
