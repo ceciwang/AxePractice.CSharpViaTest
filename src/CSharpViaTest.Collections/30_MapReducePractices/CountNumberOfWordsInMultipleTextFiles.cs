@@ -37,7 +37,11 @@ namespace CSharpViaTest.Collections._30_MapReducePractices
         
         static int CountNumberOfWords(IEnumerable<Stream> streams)
         {
-            throw new NotImplementedException();
+            return streams.Select(st => {
+                using (st){
+                    return new StreamReader(st).ReadLine().Split(' ').Where(x=> !string.IsNullOrEmpty(x)).Count(); 
+                }
+            }).Sum();
         }
 
         #endregion

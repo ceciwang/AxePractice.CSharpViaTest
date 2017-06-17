@@ -30,10 +30,16 @@ namespace CSharpViaTest.Collections._20_YieldPractices
 
         public static IEnumerable<TResult> MyCast<TResult>(this IEnumerable source)
         {
-            var enumerator = source.GetEnumerator();
-            while (enumerator.MoveNext())
+            if(source == null) {throw new ArgumentNullException();}
+            // var enumerator = source.GetEnumerator();
+            // while (enumerator.MoveNext())
+            // {
+            //     yield return (TResult)enumerator.Current;
+            // }
+
+            foreach (var item in source)
             {
-                yield return (TResult)enumerator.Current;
+                yield return (TResult)item;
             }
         }
 

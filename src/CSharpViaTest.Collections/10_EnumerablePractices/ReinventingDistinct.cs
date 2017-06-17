@@ -73,13 +73,11 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
             {
                 this.source = source;
                 this.comparer = comparer;
-                this.enumerator = source.GetEnumerator();
+                this.enumerator = source != null ? source.GetEnumerator() : throw new ArgumentNullException();
             }
 
             public bool MoveNext()
             {
-                if(source == null) {throw new ArgumentNullException();}
-
                 if(!enumerator.MoveNext()){
                     return false;
                 };
