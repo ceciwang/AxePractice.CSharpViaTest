@@ -66,36 +66,45 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
         {
             IEnumerable<TSource> source;
             IEqualityComparer<TSource> comparer;
-            TSource[] uniqueItems = new TSource[]{};
+            IList<TSource> uniqueItems = new List<TSource>();
+            IEnumerator<TSource> enumerator;
+
             public DistinctEnumerator(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
             {
                 this.source = source;
                 this.comparer = comparer;
+                this.enumerator = source.GetEnumerator();
             }
 
             public bool MoveNext()
             {
-                var enumerator = source.GetEnumerator();
-                enumerator.MoveNext();
-                while(Array.Exist(uniqueItems, enumerator.Current)){
-                    enumerator.MoveNext();
+                if(source == null) {throw new ArgumentNullException();}
+
+                if(!enumerator.MoveNext()){
+                    return false;
+                };
+                while(uniqueItems.Contains(enumerator.Current, this.comparer)){
+                    if(!enumerator.MoveNext()){
+                        return false;
+                    }
                 }
-                uniqueItems.Push(enumerator.Current);
-                return enumerator.MoveNext();
+                uniqueItems.Add(enumerator.Current);
+                return true;                
+
             }
 
             public void Reset()
             {
-                throw new NotImplementedException();
+                this.enumerator.Reset();
             }
 
-            public TSource Current { get { throw new NotImplementedException(); } }
+            public TSource Current => this.enumerator.Current;
 
             object IEnumerator.Current => Current;
 
             public void Dispose()
             {
-                throw new NotImplementedException();
+                this.enumerator.Dispose();
             }
         }
 

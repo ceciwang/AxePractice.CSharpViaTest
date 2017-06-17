@@ -61,7 +61,7 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
             using(var enumerator = source.GetEnumerator())
             {
                 if(!enumerator.MoveNext()){throw new InvalidOperationException();}
-                var seed = enumerator.Current();
+                var seed = enumerator.Current;
                 while(enumerator.MoveNext()){
                     seed = func(seed, enumerator.Current);
                 }
