@@ -101,9 +101,37 @@ namespace CSharpViaTest.Collections._40_CommonManipulation
 
         class PokerComparer : IComparer<Card>
         {
+            Dictionary<CardRank, int> rankCompare = new Dictionary<CardRank, int>{
+                {CardRank.Rank4, 0},
+                {CardRank.Rank5, 1},
+                {CardRank.Rank6, 2},
+                {CardRank.Rank7, 3},
+                {CardRank.Rank8, 4},
+                {CardRank.Rank9, 5},
+                {CardRank.Rank10, 6},
+                {CardRank.RankJ, 7},
+                {CardRank.RankQ, 8},
+                {CardRank.RankK, 9},
+                {CardRank.RankA, 10},
+                {CardRank.Rank2, 11},
+                {CardRank.Rank3, 12},
+                {CardRank.Joker, 13}
+            };
+
+            Dictionary<CardSuit, int> suitCompare = new Dictionary<CardSuit, int>{
+                {CardSuit.Clubs, 0},
+                {CardSuit.Spades, 1},
+                {CardSuit.Diamonds, 2},
+                {CardSuit.Hearts, 3}
+            };
+
             public int Compare(Card x, Card y)
             {
-                throw new System.NotImplementedException();
+                if(x.Equals(y)) { return 0;}
+                if(x.Rank != y.Rank){
+                    return rankCompare[x.Rank] - rankCompare[y.Rank];
+                }
+                return suitCompare[x.Suit] - suitCompare[y.Suit];  
             }
         }
 
