@@ -37,7 +37,12 @@ namespace CSharpViaTest.Collections._20_YieldPractices
         public static IEnumerable<TSource> MyDistinct<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
         {
             if(source == null) throw new ArgumentNullException();
-            var existingItems = new HashSet<TSource>(comparer);
+            return MyDistictEnumerator(source, comparer);
+        }
+
+        static IEnumerable<TSource> MyDistictEnumerator<TSource>(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
+        {
+            var existingItems = new HashSet<TSource>(comparer ?? EqualityComparer<TSource>.Default);
             foreach (var item in source)
             {
                 if(existingItems.Add(item)){

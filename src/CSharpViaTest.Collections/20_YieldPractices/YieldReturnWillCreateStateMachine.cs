@@ -32,9 +32,10 @@ namespace CSharpViaTest.Collections._20_YieldPractices
 
         public IEnumerable<string> GetStringTriangle(char character, int count)
         {
-            return Enumerable.Range(1, count).Select(n => {
-                return new StringBuilder().Append(character, n).ToString();
-            });
+            for (int i = 1; i <= count; i++)
+            {
+                yield return new StringBuilder().Append(character, i).ToString();
+            }
         }
 
         #endregion

@@ -33,24 +33,6 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
     {
         #region Please modifies the code to pass the test
 
-        // public static TSource MyAggregate<TSource>(
-        //     this IEnumerable<TSource> source,
-        //     Func<TSource, TSource, TSource> func)
-        // {
-        //     if(source == null || func == null) {
-        //         throw new ArgumentNullException();
-        //     }
-        //     if(source.Count() == 0) {
-        //         throw new InvalidOperationException();
-        //     }
-        //     TSource result = default(TSource);
-        //     foreach (var item in source)
-        //     {
-        //         result = func(result, item);
-        //     }
-        //     return result;
-        // }
-
         public static TSource MyAggregate<TSource>(
             this IEnumerable<TSource> source,
             Func<TSource, TSource, TSource> func)
