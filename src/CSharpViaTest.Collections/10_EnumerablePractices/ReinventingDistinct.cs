@@ -65,31 +65,25 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
         class DistinctEnumerator<TSource> : IEnumerator<TSource>
         {
-            IEnumerable<TSource> source;
             IEqualityComparer<TSource> comparer;
-            IList<TSource> uniqueItems = new List<TSource>();
             IEnumerator<TSource> enumerator;
+            HashSet<TSource> uniqueItems;
 
             public DistinctEnumerator(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
             {
-                this.source = source;
                 this.comparer = comparer;
-                this.enumerator = source != null ? source.GetEnumerator() : throw new ArgumentNullException();
+                this.enumerator = source.GetEnumerator();
+                uniqueItems = new HashSet<TSource>(comparer);
             }
 
             public bool MoveNext()
             {
-                if(!enumerator.MoveNext()){
-                    return false;
-                };
-                while(uniqueItems.Contains(enumerator.Current, this.comparer)){
-                    if(!enumerator.MoveNext()){
-                        return false;
+                while(this.enumerator.MoveNext()){
+                    if(this.uniqueItems.Add(this.enumerator.Current)){
+                        return true;
                     }
                 }
-                uniqueItems.Add(enumerator.Current);
-                return true;                
-
+                return false;
             }
 
             public void Reset()
