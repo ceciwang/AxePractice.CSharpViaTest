@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Xunit;
+using System.Linq;
+using System.Threading;
 
 namespace CSharpViaTest.IOs.HandleText
 {
@@ -36,7 +38,11 @@ namespace CSharpViaTest.IOs.HandleText
 
         static string Translate(string words, IDictionary<string, string> dictionary)
         {
-            throw new NotImplementedException();
+            var result = words.Split(',').Select(w => {
+                var item = w.Trim().ToLowerInvariant();
+                return dictionary.ContainsKey(item) ? dictionary[item] : item;
+            });
+            return string.Join("; ", result);
         }
 
         #endregion
