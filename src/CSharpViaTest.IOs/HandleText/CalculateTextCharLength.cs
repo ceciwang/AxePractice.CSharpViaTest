@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 using Xunit.Sdk;
+using System.Linq;
 
 namespace CSharpViaTest.IOs.HandleText
 {
@@ -41,7 +42,9 @@ namespace CSharpViaTest.IOs.HandleText
 
         static int GetCharacterLength(string text)
         {
-            throw new NotImplementedException();
+            if(text == null) {throw new ArgumentNullException(nameof(text));}
+            var surrogateCount = text.ToCharArray().Count(c => Char.IsSurrogate(c));
+            return text.Length - surrogateCount/2;
         }
 
         #endregion
