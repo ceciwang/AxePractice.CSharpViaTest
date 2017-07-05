@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using System.Reflection;
 
 namespace CSharpViaTest.OtherBCLs.HandleReflections
 {
@@ -30,7 +31,10 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
 
         public static string GetDescription<T>(this T value)
         {
-            throw new NotImplementedException();
+            var memberInfo = value.GetType().GetMember(value.ToString());
+            return Attribute.IsDefined(memberInfo, typeof(MyEnumDescriptionAttribute)) 
+            ? Attribute.GetCustomAttribute(memberInfo, typeof(MyEnumDescriptionAttribute)).Description
+            : value.ToString();
         }
 
         #endregion
