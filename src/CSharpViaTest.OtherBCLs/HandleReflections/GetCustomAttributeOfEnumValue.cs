@@ -31,10 +31,7 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
 
         public static string GetDescription<T>(this T value)
         {
-            var memberInfo = value.GetType().GetMember(value.ToString());
-            return Attribute.IsDefined(memberInfo, typeof(MyEnumDescriptionAttribute)) 
-            ? Attribute.GetCustomAttribute(memberInfo, typeof(MyEnumDescriptionAttribute)).Description
-            : value.ToString();
+            return "";
         }
 
         #endregion

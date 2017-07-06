@@ -44,17 +44,35 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
         
         static object InvokeMethod(object instance, string methodName, params object[] args)
         {
-            throw new NotImplementedException();
+            if(instance == null) {throw new ArgumentNullException(nameof(instance));}
+            if(methodName == null) {throw new ArgumentNullException(nameof(methodName));}
+            var methodInfo = instance.GetType().GetTypeInfo().GetMethod(methodName);
+            if(methodInfo == null) {throw new InvalidOperationException();}
+            return methodInfo.Invoke(instance, args);
         }
 
         static void SetProperty(object instance, string propertyName, object value)
         {
-            throw new NotImplementedException();
+            if(instance == null) {throw new ArgumentNullException(nameof(instance));}
+            if(propertyName == null) {throw new ArgumentNullException(nameof(propertyName));}
+            var propertyInfo = instance.GetType().GetTypeInfo().GetProperty(propertyName);
+            if(propertyInfo == null) {throw new InvalidOperationException();}
+            var setter = propertyInfo.GetSetMethod();
+            if(setter == null) {throw new InvalidOperationException();}
+            setter.Invoke(instance, new object[]{value});
         }
 
         static object GetProperty(object instance, string propertyName)
         {
-            throw new NotImplementedException();
+            if(instance == null) {throw new ArgumentNullException(nameof(instance));}
+            if(propertyName == null) {throw new ArgumentNullException(nameof(propertyName));}
+            try{
+                var propertyInfo = instance.GetType().GetTypeInfo().GetProperty(propertyName);
+                return propertyInfo.GetValue(instance);
+            }catch(Exception e){
+                throw e.InnerException;
+            }
+            
         }
 
         #endregion
